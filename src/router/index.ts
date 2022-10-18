@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
 
 const routes = [
     {
@@ -11,11 +12,11 @@ const routes = [
         name: 'Login',
         component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')   
     },
-    {
-        path: '/about',
-        name: 'About',
-        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-    }
+    // {
+    //     path: '/about',
+    //     name: 'About',
+    //     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    // }
 ]
 
 const router = createRouter({
@@ -24,8 +25,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    const store = useStore()
-    if (to.name !== 'Login' && !store.state.authenticated) {
+    const auth = useAuthStore()
+    if (to.name !== 'Login' && !auth.authenticated && to.name != 'Register') {
         next({ name: 'Login' })
     }
     next()
