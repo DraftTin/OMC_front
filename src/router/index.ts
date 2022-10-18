@@ -66,10 +66,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const auth = useAuthStore()
-    const user = useUserStore()
-    console.log(to.name)
-    console.log(user.getUser)
-    if (user.getUser === null && to.name !== 'Login' && to.name != 'Register') {
+    if (!auth.isAuthenticated && to.name !== 'Login' && to.name != 'Register') {
         next({ name: 'Login' })
     }
     else {

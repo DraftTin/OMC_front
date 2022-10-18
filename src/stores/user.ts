@@ -6,6 +6,9 @@ export const useUserStore = defineStore({
 		user: null,
 		collapse: false,
 	}),
+	persist: {
+		enabled: true,
+	},
 	getters: {
 		getCollapse(): boolean {
 			return this.collapse

@@ -6,6 +6,9 @@ export const useAuthStore = defineStore({
         user: null,
         authenticated: false
     }),
+    persist: {
+        enabled: true
+    },
     getters: {
         isAuthenticated(): boolean {
             return this.authenticated
