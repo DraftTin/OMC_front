@@ -32,6 +32,8 @@ const login = async (formEl: FormInstance | undefined) => {
 				.login(form)
 				.then((res: any) => {
 					user.setUser(res.data)
+					auth.login()
+					console.log(res.data)
 					ElNotification({
 						title: '登录成功',
 						type: 'success',
@@ -56,7 +58,7 @@ const login = async (formEl: FormInstance | undefined) => {
 		<div class="flex w-[60%] h-full justify-center items-center">
 			<div>
 				<img class="w-400px" src="@/assets/img/login-box-bg.svg" />
-				<div class="text-20px text-bold text-center">欢迎来到数据可信共享平台</div>
+				<div class="text-20px text-bold text-center">运维中心</div>
 			</div>
 		</div>
 		<div class="flex w-[40%] h-full justify-center items-center">

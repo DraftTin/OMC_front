@@ -57,42 +57,21 @@ const logout = () => {
 
 			<div class="border-r-1 border-[var(--el-border-color)] h-[calc(100%-60px)]">
 				<el-menu class="flex-grow" :collapse="collapse" router>
-					<el-sub-menu index="/dashboard/organization">
+					<el-sub-menu index="/dashboard/platform">
 						<template #title>
 							<el-icon><Setting /></el-icon>
-							<span class="text-base">机构相关</span>
+							<span class="text-base">平台相关</span>
 						</template>
-						<el-menu-item index="/dashboard/organization/information">机构详情</el-menu-item>
-						<el-menu-item index="/dashboard/organization/user">用户管理</el-menu-item>
-						<el-menu-item index="/dashboard/organization/approval">审批流程</el-menu-item>
-						<!-- <el-menu-item index="control-key-management">秘钥管理</el-menu-item> -->
-						<!-- <el-menu-item index="control-release-deployment">发布部署</el-menu-item> -->
+						<el-menu-item index="/dashboard/platform/information">平台详情</el-menu-item>
+						<el-menu-item index="/dashboard/platform/user">运营方管理</el-menu-item>
 					</el-sub-menu>
-					<el-sub-menu index="/dashboard/api">
+					<el-sub-menu index="/dashboard/chain">
 						<template #title>
 							<el-icon><Collection /></el-icon>
-							<span class="text-base">API管理</span>
+							<span class="text-base">区块链相关</span>
 						</template>
-						<el-menu-item index="/dashboard/api/register">API注册</el-menu-item>
-						<el-menu-item index="/dashboard/api/request">API申请</el-menu-item>
-						<el-menu-item index="/dashboard/api/authorization">API授权</el-menu-item>
-						<el-menu-item index="/dashboard/api/information">我的API</el-menu-item>
-					</el-sub-menu>
-					<el-sub-menu index="message">
-						<template #title>
-							<el-icon><Message /></el-icon>
-							<span class="text-base">消息协同</span>
-						</template>
-						<el-menu-item index="topic-register">Topic注册</el-menu-item>
-						<el-menu-item index="topic-request">Topic申请</el-menu-item>
-						<el-menu-item index="topic-information">我的Topic</el-menu-item>
-					</el-sub-menu>
-					<el-sub-menu index="statistics">
-						<template #title>
-							<el-icon><PieChart /></el-icon>
-							<span class="text-base">统计分析</span>
-						</template>
-						<el-menu-item index="statistics">统计分析</el-menu-item>
+						<el-menu-item index="/dashboard/chain/information">区块链信息</el-menu-item>
+						<el-menu-item index="/dashboard/chain/chainnode">管理节点</el-menu-item>
 					</el-sub-menu>
 				</el-menu>
 			</div>
