@@ -4,6 +4,9 @@ import { ref, reactive } from 'vue'
 import { validators } from '@/utils/validators'
 import { useRoute, useRouter } from 'vue-router'
 import type { FormInstance, FormRules, Action } from 'element-plus'
+import { chain_service } from '@/services/chain'
+import { chain } from 'lodash'
+import { NodeStatus } from '@/types' 
 
 const route = useRoute()
 const router = useRouter()
@@ -12,6 +15,8 @@ const pageSize = 10
 const total = ref(0)
 let currentPage = 1
 let userList: any[]
+let nodeList: NodeStatus[]
+let nodeListRef = ref(Array())
 let showList = ref(Array())
 const addUserDialogVisible = ref(false)
 
@@ -27,13 +32,22 @@ const init = () => {
 
 	total.value = userList.length
 	showList.value = userList.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+	chain_service.get_chainstatus()
+		.then((res: any) => {
+			nodeList = res.data
+			for(let i = 0; i < nodeList.length; ++i) {
+				nodeList[i].createTime = moment(nodeList[i].createTime).format('YYYY-MM-DD HH:mm:ss')
+			}
+			nodeListRef.value = nodeList.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+		})
 }
 
 init()
 
 const handleCurrentChange = (value: number) => {
 	currentPage = value
-	showList.value = userList.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+	// showList.value = userList.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+	nodeListRef.value = nodeList.slice((currentPage - 1) * pageSize, currentPage * pageSize)
 }
 
 const indexMethod = (index: number) => {
@@ -85,27 +99,13 @@ const handleClose = (done: () => void) => {
 				<h2 class="text-2xl">节点管理</h2>
 			</template>
 
-			<el-table :data="showList" highlight-current-row border>
+			<el-table :data="nodeListRef" highlight-current-row border>
 				<el-table-column label="No." type="index" :index="indexMethod" width="100" />
-				<el-table-column label="节点名称" prop="username" />
-				<el-table-column label="权限" prop="permissions">
-					<template #default="scope">
-						<el-tag class="mx-5px" v-for="item in scope.row.permission">{{ item }}</el-tag>
-					</template>
-				</el-table-column>
-				<el-table-column label="创建时间" prop="createdTime" />
-				<el-table-column label="操作">
-					<template #default scope>
-						<div class="w-full h-full flex items-center operate">
-							<el-tooltip content="编辑">
-								<el-button type="success" icon="Edit" circle size="default" />
-							</el-tooltip>
-							<el-tooltip content="删除">
-								<el-button type="danger" icon="Delete" circle size="default" />
-							</el-tooltip>
-						</div>
-					</template>
-				</el-table-column>
+				<el-table-column label="节点名称" prop="nodeName" />
+				<el-table-column label="节点类型" prop="nodeType"/>
+				<el-table-column label="所属组织" prop="creator" />
+				<el-table-column label="ip" prop="ip" />
+				<el-table-column label="创建时间" prop="createTime" />
 			</el-table>
 
 			<div class="w-full mt-20px flex items-center justify-center">

@@ -10,5 +10,5 @@ export const service = {
 	},
 	logout: () => {
 		return http.get('/user/logout')
-	}
+	},
 }
